@@ -35,6 +35,7 @@ app.UseRouting();
 
 app.UseAuthorization();
 
+app.MapControllerRoute("pagination", "Products/Page{page}", new { Controller = "Product", Action = "List" });
 app.MapControllerRoute(
 	name: "default",
 	pattern: "{controller=Product}/{action=List}/{id?}");

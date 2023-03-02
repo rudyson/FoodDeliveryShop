@@ -1,0 +1,15 @@
+﻿@using FoodDeliveryShop.Models
+@model ProductModel
+<div class="card m-1 p-1" style="border-color:dodgerblue; border-width:1.5px;">
+	<div class="bg-light p-1">
+		<h4>
+			@Model.Name
+			<span class="badge badge-pill badge-primary" style="float:right;background-color:dodgerblue;color:white">
+				<small style="">@Model.Price.ToString("c")</small>
+				</span>
+		</h4>
+	</div>
+	<div class="card-text p-1">
+		@Model.Description
+	</div>
+</div>
