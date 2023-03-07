@@ -1,0 +1,51 @@
+﻿@namespace FoodDeliveryShop.Components
+<li class="nav-item">
+@if (ViewBag.SelectedCategory == null)
+{
+        <a class="nav-link active"
+        style="font-weight: bold; background-color: --bs-blue; color: --bs-white; border-radius: 5px;"
+    asp-action="List"
+    asp-controller="Product"
+    asp-route-category=""
+    asp-route-page="1">
+    Home</a>
+}
+else
+{
+    <a class="nav-link"
+    asp-action="List"
+    asp-controller="Product"
+    asp-route-category=""
+    asp-route-page="1">
+    Home</a>
+}
+</li>
+@foreach (string category in Model)
+{
+    <li class="nav-item">
+    @if (category == ViewBag.SelectedCategory)
+    {
+                <a class="nav-link active btn-primary"
+                 style="font-weight: bold;
+    background-color: --bs-blue;
+    color: --bs-white;
+    border-radius: 5px;"
+        asp-action="List"
+        asp-controller="Product"
+        asp-route-category="@category"
+        asp-route-page="1">
+        @category
+        </a>
+    }
+    else
+    {
+        <a class="nav-link"
+        asp-action="List"
+        asp-controller="Product"
+        asp-route-category="@category"
+        asp-route-page="1">
+        @category
+        </a>
+    }
+    </li>
+}

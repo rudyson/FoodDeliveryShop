@@ -14,7 +14,7 @@ namespace FoodDeliveryShop.Infrastructure
 	{
 		private IUrlHelperFactory urlHelperFactory;
 
-		public PageLinkTagHelper(IUrlHelperFactory helperFactory)
+		public	PageLinkTagHelper(IUrlHelperFactory helperFactory)
 		{
 			urlHelperFactory = helperFactory;
 		}
@@ -24,6 +24,9 @@ namespace FoodDeliveryShop.Infrastructure
 		public ViewContext ViewContext { get; set; }
 		public PagingInfo PageModel { get; set; }
 		public string PageAction { get; set; }
+
+		[HtmlAttributeName(DictionaryAttributePrefix = "page-url-")]
+		public Dictionary<string, object> PageUrlValues { get; set; } = new Dictionary<string, object>();
 
 		public bool PageClassesEnabled { get; set; }
 		public string PageClass { get; set; }
@@ -45,7 +48,10 @@ namespace FoodDeliveryShop.Infrastructure
 			for (int i = 1; i <= PageModel.TotalPages; i++)
 			{
 				aTag = new("a");
-				aTag.Attributes["href"] = urlHelper.Action(PageAction, new { page = i });
+				PageUrlValues["Page"] = i;
+				PageUrlValues["category"] = PageModel.CurrentCategory;
+				aTag.Attributes["href"] = urlHelper.Action(PageAction, PageUrlValues);
+				//aTag.Attributes["href"] = urlHelper.Action(PageAction, new { page = i });
 
 				if (PageClassesEnabled)
 				{
