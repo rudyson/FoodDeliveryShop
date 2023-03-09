@@ -3,7 +3,7 @@
 @if (ViewBag.SelectedCategory == null)
 {
         <a class="nav-link active"
-        style="font-weight: bold; background-color: --bs-blue; color: --bs-white; border-radius: 5px;"
+        style="font-weight: bold;"
     asp-action="List"
     asp-controller="Product"
     asp-route-category=""
@@ -25,11 +25,8 @@ else
     <li class="nav-item">
     @if (category == ViewBag.SelectedCategory)
     {
-                <a class="nav-link active btn-primary"
-                 style="font-weight: bold;
-    background-color: --bs-blue;
-    color: --bs-white;
-    border-radius: 5px;"
+                <a class="nav-link active"
+                 style="font-weight: bold;"
         asp-action="List"
         asp-controller="Product"
         asp-route-category="@category"

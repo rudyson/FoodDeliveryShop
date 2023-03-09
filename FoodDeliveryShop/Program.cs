@@ -1,6 +1,7 @@
 using FoodDeliveryShop.Models;
 using Microsoft.EntityFrameworkCore;
 
+#region Builder configuration
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
@@ -8,6 +9,10 @@ builder.Services.AddControllersWithViews();
 
 //builder.Services.AddTransient<IProductRepository, FakeProductRepository>();
 builder.Services.AddTransient<IProductRepository, EFProductRepository>();
+
+// Registering of services for the shopping cart
+builder.Services.AddScoped<Cart>(sp => SessionCart.GetCart(sp));
+builder.Services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
 
 var provider = builder.Services.BuildServiceProvider();
 var configuration = provider.GetRequiredService<IConfiguration>();
@@ -18,6 +23,13 @@ builder.Services.AddDbContext<ApplicationDbContext>(options =>
 });
 
 builder.Services.AddMvc(options => options.EnableEndpointRouting = false);
+
+builder.Services.AddMemoryCache();
+builder.Services.AddSession();
+
+#endregion
+
+#region App configuration
 
 var app = builder.Build();
 
@@ -34,6 +46,7 @@ app.UseStaticFiles();
 app.UseStatusCodePages();
 app.UseDeveloperExceptionPage();
 app.UseRouting();
+app.UseSession();
 
 app.UseAuthorization();
 
@@ -90,3 +103,5 @@ app.MapControllerRoute(
 	pattern: "{controller=Product}/{action=List}/{id?}");*/
 SeedData.EnsurePopulated(app);
 app.Run();
+
+#endregion

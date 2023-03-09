@@ -5,6 +5,7 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 	<title>@ViewData["Title"] - FoodDeliveryShop</title>
 	<link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+	<link rel="stylesheet" href="~/lib/fontawesome/css/all.css" />
 	<link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
 	<link rel="stylesheet" href="~/FoodDeliveryShop.styles.css" asp-append-version="true" />
 </head>
@@ -21,6 +22,9 @@
 					<ul class="navbar-nav flex-grow-1">
 						@await Component.InvokeAsync("NavigationМenu") 
 					</ul>
+				</div>
+				<div class="text-right">
+					@await Component.InvokeAsync("CartSummary")
 				</div>
 			</div>
 		</nav>
