@@ -1,4 +1,7 @@
-﻿@using FoodDeliveryShop.Models.ViewModels
+﻿@{
+	ViewData["Title"] = "Cart";
+}
+@using FoodDeliveryShop.Models.ViewModels
 @model CartIndexViewModel
 <h2>Your cart</h2>
 @if (Model.Cart.Lines.Count() > 0)

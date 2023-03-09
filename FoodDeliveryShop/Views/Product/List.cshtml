@@ -1,20 +1,20 @@
-﻿@*
-    List view for ProductsListViewModel
-*@
+﻿@{
+	ViewData["Title"] = "Products";
+}
 @using FoodDeliveryShop.Models
 @using FoodDeliveryShop.Models.ViewModels;
 @model ProductsListViewModel
-@foreach (ProductModel product in Model.Products)
+@foreach (ProductModel product in Model.Products!)
 {
 	@Html.Partial("ProductSummary", product)
 }
 <div
-	page-model="@Model.PagingInfo"
+	page-model="@Model.PagingInfo!"
 	page-action="List"
 	page-classes-enabled="true"
 	page-class="btn"
 	page-class-normal="btn-secondary"
 	page-class-selected="btn-primary"
-	page-url-category="@Model.PagingInfo.CurrentCategory"
+	page-url-category="@Model.PagingInfo!.CurrentCategory!"
 	class="btn-group pull-right m-1">
 </div> 
