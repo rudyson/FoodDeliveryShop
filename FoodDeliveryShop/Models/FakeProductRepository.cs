@@ -1,6 +1,6 @@
 ﻿namespace FoodDeliveryShop.Models
 {
-    public class FakeProductRepository : IProductRepository
+    public class FakeProductRepository// : IProductRepository
     {
         private IEnumerable<ProductModel>? _products;
         public IEnumerable<ProductModel> Products => _products ??= new List<ProductModel>()
