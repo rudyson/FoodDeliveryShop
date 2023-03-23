@@ -9,6 +9,7 @@ builder.Services.AddControllersWithViews();
 
 //builder.Services.AddTransient<IProductRepository, FakeProductRepository>();
 builder.Services.AddTransient<IProductRepository, EFProductRepository>();
+builder.Services.AddTransient<IOrderRepository, EFOrderRepository>();
 
 // Registering of services for the shopping cart
 builder.Services.AddScoped<Cart>(sp => SessionCart.GetCart(sp));

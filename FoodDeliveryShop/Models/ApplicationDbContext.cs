@@ -8,6 +8,7 @@ namespace FoodDeliveryShop.Models
 		}
 
 		public DbSet<ProductModel> Product { get; set; }
+		public DbSet<Order> Orders { get; set; }
 
 	}
 }
