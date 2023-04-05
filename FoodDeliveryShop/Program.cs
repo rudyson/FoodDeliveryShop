@@ -1,5 +1,6 @@
 using FoodDeliveryShop.Models;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.Identity;
 
 #region Builder configuration
 var builder = WebApplication.CreateBuilder(args);
@@ -17,11 +18,20 @@ builder.Services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
 
 var provider = builder.Services.BuildServiceProvider();
 var configuration = provider.GetRequiredService<IConfiguration>();
-string connectionString = configuration.GetValue<string>("Data:FoodDeliveryShopProducts:ConnectionStrings");
+
+string connectionStringProducts = configuration.GetValue<string>("Data:FoodDeliveryShopProducts:ConnectionStrings");
+string connectionStringIdentity = configuration.GetValue<string>("Data:FoodDeliveryShopIdentity:ConnectionStrings");
+
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
 {
-	options.UseSqlServer(connectionString);
+	options.UseSqlServer(connectionStringProducts);
 });
+
+builder.Services.AddDbContext<AppIdentityDbContext>(options =>
+{
+	options.UseSqlServer(connectionStringIdentity);
+});
+builder.Services.AddIdentity<IdentityUser, IdentityRole>().AddEntityFrameworkStores<AppIdentityDbContext>().AddDefaultTokenProviders();
 
 builder.Services.AddMvc(options => options.EnableEndpointRouting = false);
 
@@ -50,6 +60,7 @@ app.UseRouting();
 app.UseSession();
 
 app.UseAuthorization();
+app.UseAuthentication();
 
 app.MapControllerRoute("pagination", "Products/Page{page}", new { Controller = "Product", Action = "List" });
 
@@ -103,6 +114,7 @@ app.MapControllerRoute(
 	name: "default",
 	pattern: "{controller=Product}/{action=List}/{id?}");*/
 SeedData.EnsurePopulated(app);
+IdentitySeedData.EnsurePopulated(app);
 app.Run();
 
 #endregion
